@@ -92,4 +92,4 @@ and visit localhost:5000 and start chatting.
 
 Note:
 
-You should have mongoDB installed and started for this application to work correctly.
+You should have [mongoDB](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/) installed and started for this application to work correctly.
