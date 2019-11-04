@@ -1,6 +1,12 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+/**
+ * Chat.js
+ * Models used for chat objects stored with mongodb
+ */
 
+// Node Modules
+const mongoose = require("mongoose");
+
+const Schema = mongoose.Schema;
 const chatSchema = new Schema(
   {
     message: {

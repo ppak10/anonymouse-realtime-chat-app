@@ -1,5 +1,13 @@
+/**
+ * chatroute.js
+ * Express route to provide message history from database
+ */
+
+// Node Modules
 const express = require("express");
 const bodyParser = require("body-parser");
+
+// Database
 const connectdb = require("./../dbconnect");
 const Chats = require("./../models/Chat");
 

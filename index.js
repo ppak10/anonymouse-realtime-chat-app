@@ -1,17 +1,19 @@
-//require the express module
-const express = require("express");
-const app = express();
-const dateTime = require("simple-datetime-formater");
+/**
+ * index.js
+ * Entry file to start express chat server
+ */
+
+// Node Modules
 const bodyParser = require("body-parser");
 const chatRouter = require("./route/chatroute");
+const dateTime = require("simple-datetime-formater");
+const express = require("express");
+const io = require("socket.io");
 const loginRouter = require("./route/loginRoute");
 
 //require the http module
+const app = express();
 const http = require("http").Server(app);
-
-// require the socket.io module
-const io = require("socket.io");
-
 const port = 5000;
 
 //bodyparser middleware
@@ -31,15 +33,16 @@ socket = io(http);
 const Chat = require("./models/Chat");
 const connect = require("./dbconnect");
 
-//setup event listener
+// Setup event listener for chat users to start session
 socket.on("connection", socket => {
   console.log("user connected");
 
+  // User disconnects
   socket.on("disconnect", function() {
     console.log("user disconnected");
   });
 
-  //Someone is typing
+  // User begins typing
   socket.on("typing", data => {
     socket.broadcast.emit("notifyTyping", {
       user: data.user,
@@ -47,18 +50,19 @@ socket.on("connection", socket => {
     });
   });
 
-  //when soemone stops typing
+  // User stops typing
   socket.on("stopTyping", () => {
     socket.broadcast.emit("notifyStopTyping");
   });
 
+  // User sending chat message
   socket.on("chat message", function(msg) {
     console.log("message: " + msg);
 
-    //broadcast message to everyone in port:5000 except yourself.
+    // Broadcast message to everyone in port:5000 except sender.
     socket.broadcast.emit("received", { message: msg });
 
-    //save chat to the database
+    // Save chat message to the database
     connect.then(db => {
       console.log("connected correctly to the server");
       let chatMessage = new Chat({ message: msg, sender: "Anonymous" });

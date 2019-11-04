@@ -1,4 +1,5 @@
-# Anonymous Real-time Chat
+# mongodb-socket.io-chat
+## Borrowed from Anonymous Real-time Chat
 
 ## Introduction
 
